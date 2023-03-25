@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { incrementMe ,decrementMe} from './slices/counterSlice';
+import {useDispatch,useSelector} from "react-redux";  // very important redux question it is
 function App() {
+  const dispatch=useDispatch();
+  const globalState=useSelector(function(state){  // this state here is the whole global state
+     return state.counterReducer;
+  });
+
+const decrementIt=()=>{
+  dispatch(decrementMe());
+}
+
+const incrementIt=()=>{
+  dispatch(incrementMe());
+ 
+}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <h1>Count - {globalState.value}</h1>
+      <h1>Count - {globalState.name}</h1>
+
+      <button onClick={incrementIt}>
+        Increment
+      </button>
+
+      <button onClick={decrementIt}>
+        Decrement
+      </button>
+    
     </div>
   );
 }
